@@ -1,0 +1,50 @@
+<template>
+    <lightning-card title="Counter Sale Order" icon-name="standard:orders">
+        <div class="slds-p-around_medium">
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="First Name" value={firstName} onchange={handleFirstNameChange} class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Last Name" value={lastName} onchange={handleLastNameChange} class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-record-picker
+                    label="Product"
+                    object-api-name="Product2"
+                    field-name="Name"
+                    value={productId}
+                    onchange={handleProductChange}
+                    class="input-field" style="width: 100%;">
+                </lightning-record-picker>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Quantity" type="number" value={quantity} onchange={handleQuantityChange} placeholder="Enter quantity" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Unit Price" type="number" value={unitPrice} onchange={handleUnitPriceChange} placeholder="Enter unit price" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Total Price" type="number" value={totalPrice} disabled placeholder="Calculated total price" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Discount (%)" type="number" value={discount} onchange={handleDiscountChange} max="100" placeholder="Enter discount" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Final Sale Price" type="number" value={finalSalePrice} disabled placeholder="Calculated final sale price" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-textarea label="Bill to Location" value={billToLocation} onchange={handleBillToLocationChange} placeholder="Enter bill to location" class="input-field" style="width: 100%;"></lightning-textarea>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-textarea label="Ship to Location" value={shipToLocation} onchange={handleShipToLocationChange} placeholder="Enter ship to location" class="input-field" style="width: 100%;"></lightning-textarea>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Invoice Number" value={invoiceNumber} onchange={handleInvoiceNumberChange} placeholder="Enter invoice number" class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <div class="slds-m-bottom_medium">
+                <lightning-input label="Invoice Date" type="date" value={invoiceDate} onchange={handleInvoiceDateChange} class="input-field" style="width: 100%;"></lightning-input>
+            </div>
+            <lightning-button label="Save" onclick={handleSave} class="slds-m-top_medium save-button" style="width: 100%;"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
