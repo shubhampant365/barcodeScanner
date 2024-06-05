@@ -1,0 +1,52 @@
+public class ServiceAppointmentApprovalController {
+    @AuraEnabled
+    public static String submitForApproval(Id recordId) {
+        if (!isInApprovalProcess(recordId)) {
+            Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
+            req.setComments('Submitting request for approval.');
+            req.setObjectId(recordId);
+            Approval.ProcessResult result = Approval.process(req);
+            return 'Approval process started successfully.';
+        } else {
+            return 'This record is already in an approval process.';
+        }
+    }
+
+    private static Boolean isInApprovalProcess(Id recordId) {
+        List<ProcessInstance> instances = [SELECT Id FROM ProcessInstance WHERE TargetObjectId = :recordId AND Status = 'Pending'];
+        return !instances.isEmpty();
+    }
+}
+
+
+
+<template>
+    <lightning-card title="Submit for Approval">
+        <div if:true={message}>
+            <p>{message}</p>
+        </div>
+        <lightning-button variant="brand" label="Submit for Approval" onclick={handleSubmit}></lightning-button>
+    </lightning-card>
+</template>
+
+
+import { LightningElement, api } from 'lwc';
+import submitForApproval from '@salesforce/apex/ServiceAppointmentApprovalController.submitForApproval';
+
+export default class SubmitForApproval extends LightningElement {
+    @api recordId;
+    message;
+
+    handleSubmit() {
+        submitForApproval({ recordId: this.recordId })
+            .then(result => {
+                this.message = result;
+            })
+            .catch(error => {
+                this.message = 'An error occurred while submitting for approval.';
+            });
+    }
+}
+
+
+
